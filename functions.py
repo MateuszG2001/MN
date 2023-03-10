@@ -1,17 +1,49 @@
-from math import *
+import matplotlib.pyplot as plt
 
 
-def f1(x):
-    # f(x) = x^11 + 4x^10 + 8x^9 - 6x^8 - 11x^7 + 24x^6 + 20x^5 - 28x^4 - 10x^3 + 10x^2 + 24x - 16
-    return -16 + x * (24 + x * (
-                10 + x * (-10 + x * (-28 + x * (20 + x * (24 + x * (-11 + x * (-6 + x * (8 + x * (4 + x))))))))))
+class Function:
+    """
+    A class representing a mathematical function.
+    """
 
+    def __init__(self, evaluator, derivative, x_min, x_max, label):
+        """
+        :param evaluator: A lambda expression representing the function, which takes a value of x as input and returns
+        the corresponding y value
+        :param derivative: A lambda expression representing the derivative of the function, which takes a value of x as
+        input and returns the corresponding slope
+        :param x_min: The starting point of the interval for plotting the function
+        :param x_max: The ending point of the interval for plotting the function
+        :param label: A string representing the function in human-readable format
+        """
+        self.evaluator = evaluator
+        self.derivative = derivative
+        self.x_min = x_min
+        self.x_max = x_max
+        self.label = label
 
-def f2(x):
-    # f(x) = 9sin(2x) + 8sin(3x) - 7sin(4x) + 6cos(5x) - 5cos(6x) + 4cos(7x)
-    return 9 * sin(2 * x) + 8 * sin(3 * x) - 7 * sin(4 * x) + 6 * cos(5 * x) - 5 * cos(6 * x) + 4 * cos(7 * x)
+    def __str__(self):
+        return self.label
 
+    def __call__(self, x):
+        return self.evaluator(x)
 
-def f3(x):
-    # f(x) = 2^x +1
-    return 2 ** x + 1
+    def get_derivative(self):
+        return self.derivative
+
+    def plot(self, roots=None, step=0.001):
+        if roots is None:
+            roots = []
+
+        x = [i * step for i in range(int(1 / step) * self.x_min, int(1 / step) * self.x_max)]
+        y = [self(i) for i in x]
+
+        plt.axhline(0, color='black', linestyle='dashed')
+        plt.plot(x, y)
+        plt.grid(True)
+        plt.xlabel('X')
+        plt.ylabel('Y')
+        plt.title(self)
+        plt.scatter(roots, [0 for _ in range(0, len(roots))], s=32, color="red")
+
+        plt.show()
