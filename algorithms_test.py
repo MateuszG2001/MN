@@ -30,7 +30,7 @@ class MyTestCase(unittest.TestCase):
         self.assertAlmostEqual(-0.56984, find_root_using_newton_method(lambda x: x**4 + x**2 - x - 1, lambda x: 4*x**3 + 2*x - 1, -1, iterations=10), 1)
 
     def test_find_root_using_newton_method_if_function_has_local_extremum_between_initial_guess_end_root_then_raises_exception(self):
-        self.assertRaises(Exception, lambda: find_root_using_newton_method(lambda x: 2*x^2-x**3-2, lambda x: 4*x - 3*x**2, 1, epsilon=0.1))
+        self.assertRaises(Exception, lambda: find_root_using_newton_method(lambda x: 2*x**2-x**3-2, lambda x: 4*x - 3*x**2, 1, epsilon=0.1))
 
 
 if __name__ == '__main__':
