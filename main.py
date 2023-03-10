@@ -1,7 +1,7 @@
 import math
 
 from algorithms import *
-from functions import *
+from function import *
 
 f = Function(lambda x: x ** 4 + x ** 2 - x - 1, lambda x: 4 * x ** 3 + 2 * x - 1, -2, 2, "f(x) = x^4 + x^2 - x - 1")
 g = Function(lambda x: x ** 3 - x + 1, lambda x: 3 * x ** 2 - 1, -2, 2, "g(x) = x^3 - x + 1")
