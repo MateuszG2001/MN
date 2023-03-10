@@ -38,3 +38,42 @@ def find_root_using_bisection_method(func, start, end, **kwargs):
         i += 1
 
     return x
+
+
+def find_root_using_newton_method(func, deriv, start, **kwargs):
+    """
+    Finds the approximation of the root of the given function starting from the given argument using the Newton method.
+    If the optional keyword argument `epsilon` is provided, the algorithm finishes as soon as the absolute value of the
+    function for the computed root is less than the value of this argument. Otherwise, if the `iterations` argument is
+    provided, the algorithm finishes after a number of iterations equal to the value of this argument. If none of these
+    keyword arguments are provided, the algorithm finishes after 10 iterations. If both of the keyword arguments are
+    provided, an exception is raised.
+
+    It may not be possible to find the root for the given parameters using this method. In that case, an exception will
+    be raised.
+
+    :param func: A function whose root we are looking for
+    :param deriv: A derivative of the given function
+    :param start: The initial guess
+    :param kwargs: Keyword arguments: `epsilon` or `iterations`.
+    :return: An approximate value of the argument from the given range, for which the value of the function is 0.
+    """
+
+    if kwargs.get('epsilon') and kwargs.get('iterations'):
+        raise Exception('Both epsilon and iterations were provided')
+
+    i = 0
+    x = start
+    epsilon = kwargs.get('epsilon') if kwargs.get('epsilon') else 0
+    iterations = kwargs.get('iterations') if kwargs.get('iterations') else -1
+
+    while not (abs(func(x)) <= epsilon or i == iterations):
+        df = deriv(x)
+        x -= func(x) / df
+
+        if df*deriv(x) < 0:
+            raise Exception('Failed to converge')
+
+        i += 1
+
+    return x
