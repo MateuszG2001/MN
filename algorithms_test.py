@@ -6,6 +6,9 @@ class MyTestCase(unittest.TestCase):
     def test_find_root_using_bisection_method_if_both_epsilon_and_iterations_where_provided_then_raises_exception(self):
         self.assertRaises(Exception, lambda: find_root_using_bisection_method(lambda x: x, -2, 2, epsilon=0.1, iterations=22))
 
+    def test_find_root_using_bisection_method_if_neither_epsilon_nor_iterations_where_provided_then_finishes_successfully(self):
+        self.assertAlmostEqual(-0.56984, find_root_using_bisection_method(lambda x: x**4 + x**2 - x - 1, -1, 0), 1)
+
     def test_find_root_using_bisection_method_if_the_func_vals_do_not_have_diff_signs_at_the_ends_of_the_interval_then_raises_exception(self):
         self.assertRaises(Exception, lambda: find_root_using_bisection_method(lambda x: x**2, -2, 2))
 
@@ -17,6 +20,9 @@ class MyTestCase(unittest.TestCase):
 
     def test_find_root_using_newton_method_if_both_epsilon_and_iterations_where_provided_then_raise_exception(self):
         self.assertRaises(Exception, lambda: find_root_using_newton_method(lambda x: x, lambda dx: 1, -2, epsilon=0.1, iterations=22))
+
+    def test_find_root_using_newton_method_if_neither_epsilon_nor_iterations_where_provided_then_finishes_successfully(self):
+        self.assertAlmostEqual(-0.56984, find_root_using_newton_method(lambda x: x**4 + x**2 - x - 1, lambda x: 4*x**3 + 2*x - 1, -1), 1)
 
     # If the function has the same sign on both sides of the root, then its second derivative changes sign, which means
     # that one of the requirements for applying Newton's method is not met.

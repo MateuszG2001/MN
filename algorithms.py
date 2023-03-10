@@ -25,6 +25,10 @@ def find_root_using_bisection_method(func, start, end, **kwargs):
     epsilon = kwargs.get('epsilon') if kwargs.get('epsilon') else 0
     iterations = kwargs.get('iterations') if kwargs.get('iterations') else -1
 
+    # If neither epsilon nor iterations where specified then limit the number of iterations to 10
+    if not {'epsilon', 'iterations'} <= set(kwargs):
+        iterations = 10
+
     while abs(start - end) > epsilon:
         x = (start + end) / 2
 
@@ -66,6 +70,10 @@ def find_root_using_newton_method(func, deriv, start, **kwargs):
     x = start
     epsilon = kwargs.get('epsilon') if kwargs.get('epsilon') else 0
     iterations = kwargs.get('iterations') if kwargs.get('iterations') else -1
+
+    # If neither epsilon nor iterations where specified then limit the number of iterations to 10
+    if not {'epsilon', 'iterations'} <= set(kwargs):
+        iterations = 10
 
     while not (abs(func(x)) <= epsilon or i == iterations):
         df = deriv(x)
