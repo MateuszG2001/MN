@@ -11,7 +11,8 @@ def find_root_using_bisection_method(func, start, end, **kwargs):
     :param start: The beginning of the interval in which we are looking for the root
     :param end: The end of the interval in which we are looking for the root
     :param kwargs: Keyword arguments: `epsilon` or `iterations`.
-    :return: An approximate value of the argument from the given range, for which the value of the function is 0.
+    :return: An approximate value of the argument from the given range, for which the value of the function is 0, and
+    number of iterations
     """
 
     if kwargs.get('epsilon') and kwargs.get('iterations'):
@@ -41,7 +42,7 @@ def find_root_using_bisection_method(func, start, end, **kwargs):
 
         i += 1
 
-    return x
+    return x, i
 
 
 def find_root_using_newton_method(func, deriv, start, **kwargs):
@@ -60,7 +61,8 @@ def find_root_using_newton_method(func, deriv, start, **kwargs):
     :param deriv: A derivative of the given function
     :param start: The initial guess
     :param kwargs: Keyword arguments: `epsilon` or `iterations`.
-    :return: An approximate value of the argument from the given range, for which the value of the function is 0.
+    :return: An approximate value of the argument from the given range, for which the value of the function is 0, and
+    number of iterations
     """
 
     if kwargs.get('epsilon') and kwargs.get('iterations'):
@@ -84,4 +86,4 @@ def find_root_using_newton_method(func, deriv, start, **kwargs):
 
         i += 1
 
-    return x
+    return x, i
