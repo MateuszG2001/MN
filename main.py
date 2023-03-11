@@ -68,30 +68,26 @@ if __name__ == '__main__':
 
     root = None
     iterations = None
-    if m_choice == 1:
-        print('\n--- Specify interval ---')
-        start = float(input("Start: "))
-        end = float(input("End: "))
-        try:
+    try:
+        if m_choice == 1:
+            print('\n--- Specify interval ---')
+            start = float(input("Start: "))
+            end = float(input("End: "))
             root, iterations = find_root_using_bisection_method(
                 functions[f_choice],
                 start,
                 end,
                 **end_condition)
-        except AlgorithmError as e:
-            print(e)
-    elif m_choice == 2:
-        guess = float(input("Enter initial guess: "))
-        try:
+        elif m_choice == 2:
+            guess = float(input("Enter initial guess: "))
             root, iterations = find_root_using_newton_method(
                 functions[f_choice],
                 functions[f_choice].get_derivative(),
                 guess,
                 **end_condition)
-        except AlgorithmError as e:
-            print(e)
-
-    functions[f_choice].plot([root])
-
-    if not end_condition.get('iterations'):
-        print(f'\nIterations: {iterations}')
+    except AlgorithmError as e:
+        print(e)
+    else:
+        functions[f_choice].plot([root])
+        if not end_condition.get('iterations'):
+            print(f'\nIterations: {iterations}')
