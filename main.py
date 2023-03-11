@@ -6,18 +6,18 @@ from function import *
 
 functions = [
     Function(
-        lambda x: x ** 4 + x ** 2 - x - 1,
-        lambda x: 4 * x ** 3 + 2 * x - 1,
+        lambda x: x * (x * (x * x + 1) - 1) - 1,
+        lambda x: x * (4 * x * x + 2) - 1,
         -2, 2, "f(x) = x^4 + x^2 - x - 1"
     ),
     Function(
-        lambda x: x ** 3 - x + 1,
-        lambda x: 3 * x ** 2 - 1,
+        lambda x: x * (x * x - 1) + 1,
+        lambda x: 3 * x * x - 1,
         -2, 2, "g(x) = x^3 - x + 1"
     ),
     Function(
-        lambda x: 2 * x ** 2 - x ** 3 - 2,
-        lambda x: 4 * x - 3 * x ** 2,
+        lambda x: -x * (x * (x - 2)) - 2,
+        lambda x: -x * (3 * x - 4),
         -2, 3, "h(x) = 2x^2 - x^3 - 2"
     ),
     Function(
