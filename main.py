@@ -78,7 +78,7 @@ if __name__ == '__main__':
                 start,
                 end,
                 **end_condition)
-        except Exception as e:
+        except AlgorithmError as e:
             print(e)
     elif m_choice == 2:
         guess = float(input("Enter initial guess: "))
@@ -88,7 +88,7 @@ if __name__ == '__main__':
                 functions[f_choice].get_derivative(),
                 guess,
                 **end_condition)
-        except Exception as e:
+        except AlgorithmError as e:
             print(e)
 
     functions[f_choice].plot([root])

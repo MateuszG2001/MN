@@ -1,3 +1,9 @@
+class AlgorithmError(Exception):
+    def __init__(self, message):
+        self.message = message
+        super().__init__(self.message)
+
+
 def find_root_using_bisection_method(func, start, end, **kwargs):
     """
     Finds the approximation of the root of the given function in the given interval using the bisection method.
@@ -16,10 +22,10 @@ def find_root_using_bisection_method(func, start, end, **kwargs):
     """
 
     if kwargs.get('epsilon') and kwargs.get('iterations'):
-        raise Exception('Both epsilon and iterations were provided')
+        raise AlgorithmError('Both epsilon and iterations were provided')
 
     if func(start)*func(end) >= 0:
-        raise Exception('Invalid interval')
+        raise AlgorithmError('Invalid interval')
 
     i = 0
     x = None
@@ -66,7 +72,7 @@ def find_root_using_newton_method(func, deriv, start, **kwargs):
     """
 
     if kwargs.get('epsilon') and kwargs.get('iterations'):
-        raise Exception('Both epsilon and iterations were provided')
+        raise AlgorithmError('Both epsilon and iterations were provided')
 
     i = 0
     x = start
@@ -82,7 +88,7 @@ def find_root_using_newton_method(func, deriv, start, **kwargs):
         x -= func(x) / df
 
         if df*deriv(x) < 0:
-            raise Exception('Failed to converge')
+            raise AlgorithmError('Failed to converge')
 
         i += 1
 
