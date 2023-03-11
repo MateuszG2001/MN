@@ -44,6 +44,9 @@ class MyTestCase(unittest.TestCase):
     def test_find_root_using_newton_method_if_iterations_not_provided_then_iterates_10_times(self):
         self.assertEqual(10, find_root_using_newton_method(lambda x: x**3 - x + 1, lambda x: 3*x**2 - 1, -2)[1])
 
+    def test_find_root_using_newton_method_if_value_of_derivative_is_0_then_raises_exception(self):
+        self.assertRaises(AlgorithmError, lambda: find_root_using_newton_method(lambda x: 2 * x ** 2 - x ** 3 - 2, lambda x: 4 * x - 3 * x ** 2, 0))
+
 
 if __name__ == '__main__':
     unittest.main()

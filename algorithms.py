@@ -85,6 +85,10 @@ def find_root_using_newton_method(func, deriv, start, **kwargs):
 
     while not (abs(func(x)) <= epsilon or i == iterations):
         df = deriv(x)
+
+        if df == 0:
+            raise AlgorithmError('Failed to coverage')
+
         x -= func(x) / df
 
         if df*deriv(x) < 0:
