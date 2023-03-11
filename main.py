@@ -35,6 +35,7 @@ if __name__ == '__main__':
     f_choice = int(input('\nEnter your choice: '))
     while f_choice not in range(1, len(functions) + 1):
         f_choice = int(input('Invalid input. Try again: '))
+    f_choice -= 1
 
     functions[f_choice].plot()
 
