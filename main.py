@@ -89,5 +89,6 @@ if __name__ == '__main__':
         print(e)
     else:
         functions[f_choice].plot([root])
+        print(f'Root approximation: {root}')
         if not end_condition.get('iterations'):
             print(f'\nIterations: {iterations}')
