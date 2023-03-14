@@ -40,15 +40,6 @@ if __name__ == '__main__':
     functions[f_choice].plot()
 
     print(dedent("""
-        Available root finding methods:
-        1. Bisection method
-        2. Newton method"""))
-
-    m_choice = int(input('\nEnter your choice: '))
-    while m_choice not in range(1, 3):
-        m_choice = int(input('Invalid input. Try again: '))
-
-    print(dedent("""
         Available end conditions:
         1. Reaching a fixed number of iterations
         2. |f(x)| <= ε
@@ -69,26 +60,32 @@ if __name__ == '__main__':
     root = None
     iterations = None
     try:
-        if m_choice == 1:
-            print('\n--- Specify interval ---')
-            start = float(input("Start: "))
-            end = float(input("End: "))
-            root, iterations = find_root_using_bisection_method(
-                functions[f_choice],
-                start,
-                end,
-                **end_condition)
-        elif m_choice == 2:
-            guess = float(input("Enter initial guess: "))
-            root, iterations = find_root_using_newton_method(
-                functions[f_choice],
-                functions[f_choice].get_derivative(),
-                guess,
-                **end_condition)
+        print('\n--- Bisection method ---')
+        print('Specify interval')
+        start = float(input("Start: "))
+        end = float(input("End: "))
+        root1, iterations1 = find_root_using_bisection_method(
+            functions[f_choice],
+            start,
+            end,
+            **end_condition)
+        print('\n --- Newton method ---')
+        guess = float(input("Enter initial guess: "))
+        root2, iterations2 = find_root_using_newton_method(
+            functions[f_choice],
+            functions[f_choice].get_derivative(),
+            guess,
+            **end_condition)
     except AlgorithmError as e:
         print(e)
     else:
         functions[f_choice].plot([root])
-        print(f'Root approximation: {root}')
+        print('\n--- Results ---')
+        print('Bisection method')
+        print(f'Root approximation: {root1}')
         if not end_condition.get('iterations'):
-            print(f'\nIterations: {iterations}')
+            print(f'Iterations: {iterations1}')
+        print('\nNewton method')
+        print(f'Root approximation: {root2}')
+        if not end_condition.get('iterations'):
+            print(f'Iterations: {iterations2}')
