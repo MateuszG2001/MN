@@ -79,7 +79,9 @@ if __name__ == '__main__':
     except AlgorithmError as e:
         print(e)
     else:
-        functions[f_choice].plot([root])
+        functions[f_choice].plot([root1],0)
+        functions[f_choice].plot([root2],1)
+        plt.show()
         print('\n--- Results ---')
         print('Bisection method')
         print(f'Root approximation: {root1}')

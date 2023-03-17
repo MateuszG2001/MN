@@ -1,11 +1,9 @@
 import matplotlib.pyplot as plt
 
-
 class Function:
     """
     A class representing a mathematical function.
     """
-
     def __init__(self, evaluator, derivative, x_min, x_max, label):
         """
         :param evaluator: A lambda expression representing the function, which takes a value of x as input and returns
@@ -31,7 +29,7 @@ class Function:
     def get_derivative(self):
         return self.derivative
 
-    def plot(self, roots=None, step=0.001):
+    def plot(self, roots=None,pom=2, step=0.001):
         if roots is None:
             roots = []
 
@@ -44,6 +42,7 @@ class Function:
         plt.xlabel('X')
         plt.ylabel('Y')
         plt.title(self)
-        plt.scatter(roots, [0 for _ in range(0, len(roots))], s=32, color="red")
-
-        plt.show()
+        if pom == 1:
+            plt.scatter(roots, [0 for _ in range(0, len(roots))], marker=2, s=250, color="red")
+        if pom == 0:
+            plt.scatter(roots, [0 for _ in range(0, len(roots))], marker=3, s=250, color="purple")
