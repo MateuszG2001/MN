@@ -27,15 +27,33 @@ functions = [
     )
 ]
 
+
+def get_input(prompt, reader, predicate):
+    ret = None
+    try:
+        ret = reader(prompt)
+    except (IOError, ValueError):
+        pass
+
+    while not predicate(ret):
+        try:
+            ret = reader('Invalid input. Try again: ')
+        except (IOError, ValueError):
+            continue
+
+    return ret
+
+
 if __name__ == '__main__':
     print('Available functions:')
     for i in range(0, len(functions)):
         print(f'{i + 1}. {functions[i]}')
 
-    f_choice = int(input('\nEnter your choice: '))
-    while f_choice not in range(1, len(functions) + 1):
-        f_choice = int(input('Invalid input. Try again: '))
-    f_choice -= 1
+    f_choice = get_input(
+        prompt='\nEnter your choice: ',
+        reader=lambda m: int(input(m)) - 1,
+        predicate=lambda v: v in range(0, len(functions))
+    )
 
     functions[f_choice].plot()
 
@@ -45,16 +63,26 @@ if __name__ == '__main__':
         2. |f(x)| <= ε
     """))
 
-    e_choice = int(input('Enter your choice: '))
-    while e_choice not in range(1, 3):
-        e_choice = int(input('Invalid input. Try again: '))
+    e_choice = get_input(
+        prompt='Enter your choice: ',
+        reader=lambda m: int(input(m)),
+        predicate=lambda v: v in range(1, 3)
+    )
 
     end_condition = None
     if e_choice == 1:
-        iterations = int(input('Enter the number of iterations: '))
+        iterations = get_input(
+            prompt='Enter the number of iterations: ',
+            reader=lambda m: int(input(m)),
+            predicate=lambda v: v > 0
+        )
         end_condition = {'iterations': iterations}
     else:
-        epsilon = float(input('Enter the value of ε: '))
+        epsilon = get_input(
+            prompt='Enter the value of ε: ',
+            reader=lambda m: float(input(m)),
+            predicate=lambda v: v > 0
+        )
         end_condition = {'epsilon': epsilon}
 
     root = None
@@ -62,15 +90,27 @@ if __name__ == '__main__':
     try:
         print('\n--- Bisection method ---')
         print('Specify interval')
-        start = float(input("Start: "))
-        end = float(input("End: "))
+        start = get_input(
+            prompt='Start: ',
+            reader=lambda m: float(input(m)),
+            predicate=lambda v: True
+        )
+        end = get_input(
+            prompt='End: ',
+            reader=lambda m: float(input(m)),
+            predicate=lambda v: True
+        )
         root1, iterations1 = find_root_using_bisection_method(
             functions[f_choice],
             start,
             end,
             **end_condition)
         print('\n--- Newton method ---')
-        guess = float(input("Enter initial guess: "))
+        guess = get_input(
+            prompt='Enter initial guess: ',
+            reader=lambda m: float(input(m)),
+            predicate=lambda v: True
+        )
         root2, iterations2 = find_root_using_newton_method(
             functions[f_choice],
             functions[f_choice].get_derivative(),
