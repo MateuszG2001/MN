@@ -29,9 +29,13 @@ class Function:
     def get_derivative(self):
         return self.derivative
 
-    def plot(self, roots=None,marker=2, step=0.001):
+    def plot(self, roots=None, markers=None, colors=None, step=0.001):
         if roots is None:
             roots = []
+        if markers is None:
+            markers = []
+        if colors is None:
+            colors = []
 
         x = [i * step for i in range(int(1 / step) * self.x_min, int(1 / step) * self.x_max)]
         y = [self(i) for i in x]
@@ -42,7 +46,8 @@ class Function:
         plt.xlabel('X')
         plt.ylabel('Y')
         plt.title(self)
-        if marker == 1:
-            plt.scatter(roots, [0 for _ in range(0, len(roots))], marker=2, s=250, color="red")
-        if marker == 0:
-            plt.scatter(roots, [0 for _ in range(0, len(roots))], marker=3, s=250, color="purple")
+
+        for i in range(0, len(roots)):
+            plt.scatter(roots[i], 0, marker=markers[i], color=colors[i], s=250)
+
+        plt.show()

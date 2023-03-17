@@ -38,7 +38,6 @@ if __name__ == '__main__':
     f_choice -= 1
 
     functions[f_choice].plot()
-    plt.show()
 
     print(dedent("""
         Available end conditions:
@@ -80,9 +79,7 @@ if __name__ == '__main__':
     except AlgorithmError as e:
         print(e)
     else:
-        functions[f_choice].plot([root1],0)
-        functions[f_choice].plot([root2],1)
-        plt.show()
+        functions[f_choice].plot([root1, root2], markers=[2, 3], colors=["red", "purple"])
         print('\n--- Results ---')
         print('Bisection method')
         print(f'Root approximation: {root1}')
