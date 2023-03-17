@@ -38,6 +38,7 @@ if __name__ == '__main__':
     f_choice -= 1
 
     functions[f_choice].plot()
+    plt.show()
 
     print(dedent("""
         Available end conditions:

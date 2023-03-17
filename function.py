@@ -29,7 +29,7 @@ class Function:
     def get_derivative(self):
         return self.derivative
 
-    def plot(self, roots=None,pom=2, step=0.001):
+    def plot(self, roots=None,marker=2, step=0.001):
         if roots is None:
             roots = []
 
@@ -42,7 +42,7 @@ class Function:
         plt.xlabel('X')
         plt.ylabel('Y')
         plt.title(self)
-        if pom == 1:
+        if marker == 1:
             plt.scatter(roots, [0 for _ in range(0, len(roots))], marker=2, s=250, color="red")
-        if pom == 0:
+        if marker == 0:
             plt.scatter(roots, [0 for _ in range(0, len(roots))], marker=3, s=250, color="purple")
