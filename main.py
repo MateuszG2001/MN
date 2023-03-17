@@ -69,7 +69,7 @@ if __name__ == '__main__':
             start,
             end,
             **end_condition)
-        print('\n --- Newton method ---')
+        print('\n--- Newton method ---')
         guess = float(input("Enter initial guess: "))
         root2, iterations2 = find_root_using_newton_method(
             functions[f_choice],

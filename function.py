@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 
+
 class Function:
     """
     A class representing a mathematical function.
