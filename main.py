@@ -6,23 +6,24 @@ from function import *
 
 functions = [
     Function(
-        lambda x: x*(x*(x*(x+1)-14))+24,
-        lambda x: x*(x*(4*x+3)-28),
+        lambda x: x * (x * (x * (x + 1) - 14)) + 24,
+        lambda x: x * (x * (4 * x + 3) - 28),
         -5, -1, "f(x) = x^4 + x^3 - 14x^2 +24"
     ),
     Function(
-        lambda x: 2**x-math.sin(2*x),
-        lambda x:  (math.log(2) * 2**x) - 2*math.cos(2*x),
+        lambda x: 2 ** x - math.sin(2 * x),
+        lambda x: (math.log(2) * 2 ** x) - 2 * math.cos(2 * x),
         -4, 1, "g(x) = 2^x-sin(2x)"
     ),
     Function(
-        lambda x: math.sin(x)+x-1,
+        lambda x: math.sin(x) + x - 1,
         lambda x: math.cos(x) + 1,
         -2, 2, "h(x) = sin(x)+x-1"
     ),
     Function(
-        lambda x: 2**(math.sin(x)+x-1) - math.sin(2*(math.sin(x)+x-1)),
-        lambda x:  2**(math.sin(x)+x-1) * math.log(2) * (math.cos(x) + 1) - 2*math.cos(2*(math.sin(x)+x-1)) * (math.cos(x) + 1),
+        lambda x: 2 ** (math.sin(x) + x - 1) - math.sin(2 * (math.sin(x) + x - 1)),
+        lambda x: 2 ** (math.sin(x) + x - 1) * math.log(2) * (math.cos(x) + 1) - 2 * math.cos(
+            2 * (math.sin(x) + x - 1)) * (math.cos(x) + 1),
         -3, 1, "k(x) = 2^(six(x)+x-1)-sin(2*sin(x)+x-1)"
     )
 ]
