@@ -1,51 +1,64 @@
 import csv
 from algorithms import *
 
-rows_number = 0
-rows_number_2 = 0
-control = 0
-epsilon = 0.00001
 
-print("Enter the name of the matrix file (file.txt)")
-name_file = input()
+def get_input(prompt, reader, predicate):
+    ret = None
+    try:
+        ret = reader(prompt)
+    except (IOError, ValueError):
+        pass
 
-print("Enter the number of matrix equations (if all enter 0)")
-control = int(input())
+    while not predicate(ret):
+        try:
+            ret = reader('Invalid input. Try again: ')
+        except (IOError, ValueError):
+            continue
 
-if control == 0:
-    with open(name_file, 'r') as file:
-        reader = csv.reader(file, delimiter=';')
-        rows_number = len(list(reader))
-else:
-    rows_number = control
-rows_number_2 = rows_number + 1
+    return ret
 
-tab = [[0] * rows_number_2 for i in range(rows_number)]
 
-with open(name_file, 'r') as file:
-    reader = csv.reader(file, delimiter=';')
-    for i in range(rows_number):
-        row = next(reader)
-        for j in range(rows_number_2):
-            tab[i][j] = float(row[j])
+def get_input_from_file(prompt):
+    ret = None
+    while True:
+        try:
+            filename = input(prompt)
 
-for j in range(rows_number):
-    for k in range(rows_number_2):
-        print(tab[j][k], "\t", end="")
-    print()
+            with open(filename, 'r') as file:
+                reader = csv.reader(file, delimiter=';')
+                ret = [[float(v) for v in row] for row in list(reader)]
+        except Exception as e:
+            print(e)
+            continue
+        else:
+            break
 
-elim = gauss_elimination(rows_number, tab, epsilon)
-X = [0] * rows_number
+    return ret
 
-if elim:
-    print("Gauss elimination succeeded")
-    calc = calculate(rows_number, X, tab, epsilon)
-    if calc:
-        print("Calculation of unknowns completed successfully")
-        for l in range(rows_number):
-            print(X[l], "\t", end="")
-        print()
-else:
-    print("The calculated values are too close to 0")
-    print("Choose another method to solve this system of equations")
 
+if __name__ == '__main__':
+
+    matrix = get_input_from_file(
+        prompt="Enter the name of the file containing the equations: "
+    )
+
+    # Print the matrix
+    print('\n--- MATRIX ---')
+    s = [[str(e) for e in row] for row in matrix]
+    lens = [max(map(len, col)) for col in zip(*s)]
+    fmt = '\t'.join('{{:{}}}'.format(x) for x in lens)
+    table = [fmt.format(*row) for row in s]
+    print('\n'.join(table))
+
+    num_of_rows = get_input(
+        prompt="\nEnter the number of equations (if all enter 0): ",
+        reader=lambda m: int(input(m)),
+        predicate=lambda v: v is not None
+    )
+    if num_of_rows == 0:
+        num_of_rows = None
+
+    try:
+        print(f'\n--- SOLUTION ---\n{solve(matrix, gaussian_elimination, num_of_rows)}')
+    except Exception as e:
+        print(e)
