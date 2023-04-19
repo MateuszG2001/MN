@@ -25,7 +25,12 @@ functions = [
         lambda x: 2 ** (math.sin(x) + x - 1) * math.log(2) * (math.cos(x) + 1) - 2 * math.cos(
             2 * (math.sin(x) + x - 1)) * (math.cos(x) + 1),
         -3, 1, "k(x) = 2^(six(x)+x-1)-sin(2*sin(x)+x-1)"
-    )
+    ),
+    Function(
+        lambda x: abs(x-5),
+        lambda x: 1,
+        0, 10, "l(x) = |x-5|"
+    ),
 ]
 
 
